@@ -1,0 +1,16 @@
+setfpscap(10) -- less cpu usage
+game.Players.LocalPlayer.Idled:Connect(function()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "Caret", false, game)
+    wait()
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, "Caret", false, game)
+end)
+workspace.Museum.Roof.Detonator1.ArmLower:GetPropertyChangedSignal("Transparency"):Connect(function()
+    while workspace.Museum.Roof.Detonator1.ArmLower.Transparency == 0 and workspace.Museum.Lights.Spotlight.Light.Transparency == 1 do
+        for i,v in pairs(require(game.ReplicatedStorage.Module.UI).CircleAction.Specs) do
+            if v.Part and tostring(v.Part.Parent) == "Detonator0" then
+                v:Callback(true)
+            end
+        end
+        task.wait(1)
+    end
+end)
